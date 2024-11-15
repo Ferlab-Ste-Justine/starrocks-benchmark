@@ -1,4 +1,5 @@
 import mysql, { Pool, PoolOptions } from 'mysql2/promise';
+
 import { starrocksDatabase, starrocksHost, starrocksPassword, starrocksPort, starrocksUsername } from './env';
 
 class StarRocksConnection {
@@ -10,11 +11,11 @@ class StarRocksConnection {
         host: starrocksHost,
         port: starrocksPort,
         password: starrocksPassword,
-        namedPlaceholders: true
-      };
+        namedPlaceholders: true,
+    };
     constructor() {
         if (!this.instance) {
-                this.instance = mysql.createPool(this.access);
+            this.instance = mysql.createPool(this.access);
         }
     }
 

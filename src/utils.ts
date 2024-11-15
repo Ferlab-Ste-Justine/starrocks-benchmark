@@ -1,4 +1,4 @@
-export const takeRandomElemOfArray = (array: any[]): any => {
-    let i = Math.floor(Math.random() * array.length);
-    return  array[i];
+export const takeRandomElemOfArray = (array: unknown[]): unknown => {
+    const i = Math.floor(Math.random() * array.length);
+    return array[i];
 };
