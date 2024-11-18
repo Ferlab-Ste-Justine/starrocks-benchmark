@@ -5,7 +5,7 @@ import { takeRandomElemOfArray } from './utils';
 const main = async () => {
     console.time('fetchSeqExp');
     const seqExp = await fetchSeqExp();
-    console.timeEnd('fetchSeqExp');
+
 
     const concurrentUsersSeqExp = [];
 
@@ -15,9 +15,16 @@ const main = async () => {
 
     console.log('concurrentSeqExp', concurrentUsersSeqExp);
 
-    for (const user of concurrentUsersSeqExp) {
-        await countOccurrences(user.seq_id);
+    const workerPromises = [];
+    for (const seqExp of concurrentUsersSeqExp){
+         workerPromises.push( countOccurrences(seqExp.seq_id, seqExp.part));
+        // workerPromises.push( listOccurrences(seqExp.seq_id, seqExp.part).catch((err) => {
+        //     console.error(err);
+        // }));
     }
+    await Promise.all(workerPromises);
+    console.timeEnd('fetchSeqExp');
+    await connection.getInstance().end()
 };
 
 main()
